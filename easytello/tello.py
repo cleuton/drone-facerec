@@ -7,8 +7,14 @@ from easytello.stats import Stats
 # Face Recognition module:
 import facerec
 
+## Atenção: informe aqui o vetor de rostos!
+facesnames = ['Abdullah_Gul', 'Al_Gore', 'cleuton', 'Bill_Clinton']
+# Global facerec var: 
+frec = facerec.Processor(facesnames)
+
 class Tello:
-    def __init__(self, tello_ip: str='192.168.10.1', debug: bool=True):
+    def __init__(self, tello_ip: str='192.168.10.1', debug: bool=True, model: str='faces_saved.h5'):
+        global frec
         # Opening local UDP port on 8889 for Tello communication
         self.local_ip = ''
         self.local_port = 8889
@@ -32,6 +38,9 @@ class Tello:
         self.debug = debug
         # Setting Tello to command mode
         self.command()
+
+        # Loading model for face recognition
+        frec.load_model(model,facesnames)
 
     def send_command(self, command: str, query: bool =False):
         # New log entry created for the outbound command
@@ -78,7 +87,8 @@ class Tello:
                 width  = cap.get(cv2.CAP_PROP_FRAME_WIDTH)  # float
                 height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # float            
                 try: 
-                    cv2.imshow('DJI Tello', frame)
+                    #cv2.imshow('DJI Tello', frame)
+                    frec.predict(frame)
                 except:
                     print("error h w",height,width)
 

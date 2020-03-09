@@ -61,9 +61,35 @@ Ative o ambiente antes de usar este software:
 conda activate drone-facerec
 ```
 
+## Criando um arquivo de modelo
+
+Para fazer o reconhecimento facial, é necessário treinar uma rede neural. Eu não inserir o projeto [**FaceREC**](https://github.com/cleuton/facerec_cnn) aqui, nem mesmo o arquivo de modelo que eu treinei. Recomendo que você clone o projeto original e treine seu modelo, copiando o arquivo **HDF5** criado para a pasta **easyTello**, dentro deste projeto. 
+
+Baixe e extraia o arquivo [**shape_predictor_68_face_landmarks**](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2) file, e coloque no projeto FaceRec_CNN e dentro da pasta **easytello** deste projeto!
+
+Gerar um modelo é simples: 
+
+1. **Obtenha várias fotos do rosto da mesma pessoa**:
+a) Use o [**Labeled Faces in the Wild**](http://vis-www.cs.umass.edu/lfw/) e baixe várias fotos da mesma pessoa, copiando para a pasta **raw** do projeto FaceRec_CNN;
+b) Nomeie os arquivos neste padrão: fulano-de-tal.nnnn.jpg (não use espaços, numere fotos do mesmo sujeito, separando por pontos). Por exemplo: "bill-clinton.0001.jpg";
+c) Tire várias fotos do seu rosto (e de quem mais deseja reconhecer) e salve na pasta **raw** seguindo a mesma nomenclatura do passo "b";
+d) Cuide para que haja apenas um único rosto em cada foto de treinamento! Se houver mais de um rosto, corte a foto;
+
+2. **Converta as fotos**: 
+a) O script **trainCNN.py** vai rotacionar e cortar os rostos, transformando em imagens monocromáticas. Ele vai separar em fotos de treino e de teste (pastas "train" e "test") de acordo com a variável **train_test_ratio = 0.3**. Se mantiver em 30%, então 70% das imagens serão para treino e as outras para teste;
+b) Anote as categorias encontradas! O programa exibirá um vetor com os nomes encontrados. Anote para mudar no script de predição (**predict.py**) e no script de reconhecimento deste projeto (**facerec.py**);
+c) Se houver 4 pessoas na sua pasta **raw**, ele tem que separar 4 pessoas em **train** e 4 pessoas em **test**. Com poucas imagens, pode acontecer de ficarem menos pessoas em **test** e isso dará erro.
+
+3. **Obtenha os nomes das pessoas e o arquivo de modelo**: 
+a) Os nomes das pessoas são exibidos na console, após o treinamento. Copie esse vetor e altere no **facerec.py**;
+b) O arquivo de modelo terá o nome **'faces_saved.h5'** copie-o para a pasta **easytello** deste projeto;
+
+
 ## Controlando o drone
 
 O script [**teste.py**](./teste.py) controla o drone. Ele faz basicamente 2 coisas: coloca em modo comando e inicia a captura de vídeo. Mas você pode fazer muito mais! Pode fazer o drone decolar, ir para a frente, ou virar e depois pousar. Há alguns comandos comentados que você pode usar. Se quiser saber mais sobre os comandos que o Tello aceita, [**veja na documentação**](https://dl-cdn.ryzerobotics.com/downloads/Tello/Tello%20SDK%202.0%20User%20Guide.pdf).
+
+Certifique-se de haver colocado o arquivo **h5** na pasta easyTello! E mude o nome dentro do arquivo [**tello.py**](./easytello/tello.py).
 
 **Atenção**: Se você fizer o drone decolar, tenha certeza de haver espaço para isso! Se ele bater no teto ou nas paredes, pode ficar danificado! E cuidado ao tentar usar o Tello no ambiente externo (não recomendável). Se ele se afastar por mais de 10 metros, pode ficar fora do alcance do WiFi e colidir com alguma coisa. Teoricamente, se ele perder o contato, ele pousa automaticamente. 
 

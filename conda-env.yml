@@ -1,0 +1,9 @@
+name: drone-facerec
+dependencies:
+  - python=3.7
+  - pip: 
+    - opencv-python
+    - pillow
+    - imutils
+    - numpy
+

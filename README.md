@@ -4,6 +4,8 @@ My [**LinkedIn** profile](https://www.linkedin.com/in/cleutonsampaio/).
 
 ![](./im.png)
 
+[**ENGLISH VERSION HERE**](./english_version.md)
+
 Uma demonstração de reconhecimento facial utilizando [**Keras**](https://keras.io/), [**ensorflow**](https://www.tensorflow.org/), python e o drone [**Tello**](https://store.dji.com/shop/tello-series), da **DJI**.
 
 Este projeto é baseado em dois outros projetos do Github: 
@@ -57,7 +59,7 @@ Depois do processo, verifique a nova versão do firmware.
 
 Se você atualizou corretamente o firmware, eu recomendo que tente rodar o [**easyTello**](https://github.com/Virodroid/easyTello) original, seguindo as instruções no repositório dele. Com isso, você confirma que a API de controle está funcionando corretamente. Depois, pode baixar e rodar este repositório aqui. 
 
-Isso feito, clone este repositório e crie um ambiente [**Anaconda**]() usando o script [**conta-env.yml**](./conda-env.yml): 
+Isso feito, clone este repositório e crie um ambiente [**Anaconda**](https://anaconda.org/) usando o script [**conta-env.yml**](./conda-env.yml): 
 
 ```
 conda env create -f conda-env.yml
@@ -89,13 +91,11 @@ Gerar um modelo é simples:
     3. Se houver 4 pessoas na sua pasta **raw**, ele tem que separar 4 pessoas em **train** e 4 pessoas em **test**. Com poucas imagens, pode acontecer de ficarem menos pessoas em **test** e isso dará erro.
 
 3. **Obtenha os nomes das pessoas e o arquivo de modelo**: 
-    1. Os nomes das pessoas são exibidos na console, após o treinamento. Copie esse vetor e altere no **facerec.py**; 
+    1. Os nomes das pessoas são exibidos na console, após o treinamento. Copie esse vetor e altere no **faceprocessor.py**; 
     2. O arquivo de modelo terá o nome **'faces_saved.h5'** copie-o para a pasta **easytello** deste projeto;
 
 
-Antes de testar com o drone de verdade, eu sugiro que você teste aos poucos: 
-
-1. Verifique se consegue capturar vídeo da sua WebCam: 
+Antes de testar com o drone de verdade, eu sugiro que você teste aos poucos. Verifique se consegue capturar vídeo da sua WebCam: 
 
 ```
 ffmpeg -f video4linux2 -s 640x480 -r 15 -i /dev/video0 -vcodec libx264 -f  h264 -an udp://localhost:11111

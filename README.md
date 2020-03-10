@@ -6,6 +6,8 @@ My [**LinkedIn** profile](https://www.linkedin.com/in/cleutonsampaio/).
 
 [**ENGLISH VERSION HERE**](./english_version.md)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rYlRKvWnsSc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Uma demonstração de reconhecimento facial utilizando [**Keras**](https://keras.io/), [**ensorflow**](https://www.tensorflow.org/), python e o drone [**Tello**](https://store.dji.com/shop/tello-series), da **DJI**.
 
 Este projeto é baseado em dois outros projetos do Github: 

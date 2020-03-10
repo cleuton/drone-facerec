@@ -15,6 +15,8 @@ Este projeto é baseado em dois outros projetos do Github:
 
 ## Visão geral
 
+Eu rodei isso no **Ubuntu** (Linux). Para rodar em **MS Windows** ou **MacOS** é necessário alterar algumas coisas. Você está convidado a fazer isso e depois submeter um **pull request**.
+
 Este software controla um drone Tello, capturando o vídeo streaming gerado por sua câmera de bordo. Ele intercepta cada frame e tenta reconecer rostos que aparecem na imagem, utilizando um modelo de rede [**Convolucional**](https://github.com/cleuton/FaceGuard/tree/master/CNN) que eu treinei, baseado em imagens do dataset  [**Labeled Faces in the Wild**](http://vis-www.cs.umass.edu/lfw/), e algumas fotos minhas. 
 
 É uma prova de conceito do uso de inteligência artificial com drones e, por que não, de Internet das Coisas (IoT). Note que a performance pode ser baixa, afinal de contas, estou usando um laptop e um drone barato e simples. Com mais recursos, é possível obter melhor desempenho da solução.

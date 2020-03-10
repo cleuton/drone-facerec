@@ -6,6 +6,8 @@ My [**LinkedIn** profile](https://www.linkedin.com/in/cleutonsampaio/).
 
 [**ENGLISH VERSION HERE**](./english_version.md)
 
+
+**clique na imagem para assistir a uma demonstração em vdeo**
 [![](./video.png)](https://youtu.be/rYlRKvWnsSc)
 
 Uma demonstração de reconhecimento facial utilizando [**Keras**](https://keras.io/), [**ensorflow**](https://www.tensorflow.org/), python e o drone [**Tello**](https://store.dji.com/shop/tello-series), da **DJI**.

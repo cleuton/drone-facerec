@@ -1,9 +1,14 @@
 name: drone-facerec
 dependencies:
-  - python=3.7
+  - python=3.6
   - pip: 
-    - opencv-python
     - pillow
     - imutils
     - numpy
+    - tensorflow
+    - keras
+    - dlib>=19.4
+    - opencv-python>=3.2
+    - sklearn
+    - matplotlib    
 

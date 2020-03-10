@@ -2,15 +2,16 @@ import socket
 import threading
 import time
 import cv2
+import sys,os
 from easytello.stats import Stats
 
 # Face Recognition module:
-import facerec
+import easytello.facerec as facerec
 
 ## Atenção: informe aqui o vetor de rostos!
-facesnames = ['Abdullah_Gul', 'Al_Gore', 'cleuton', 'Bill_Clinton']
+facesnames = ['cleuton', 'Bill-Clinton', 'Bill-Gates']
 # Global facerec var: 
-frec = facerec.Processor(facesnames)
+frec = facerec.Processor(facesnames=facesnames, modelname="./easytello/faces_saved.h5")
 
 class Tello:
     def __init__(self, tello_ip: str='192.168.10.1', debug: bool=True, model: str='faces_saved.h5'):
@@ -40,7 +41,7 @@ class Tello:
         self.command()
 
         # Loading model for face recognition
-        frec.load_model(model,facesnames)
+        frec.loadmodel()
 
     def send_command(self, command: str, query: bool =False):
         # New log entry created for the outbound command
@@ -75,9 +76,9 @@ class Tello:
 
     def _video_thread(self):
         # Creating stream capture object
-        #"udpsrc port=5000 ! application/x-rtp,media=video,payload=96,clock-rate=90000,encoding-name=H264, ! rtph264depay ! decodebin ! videoconvert ! appsink ")
-        cap = cv2.VideoCapture('udp://'+self.tello_ip+':11111')
-        #cap = cv2.VideoCapture('udp://0.0.0.0:11111')
+        #ffmpeg -f video4linux2 -s 640x480 -r 15 -i /dev/video0 -vcodec libx264 -f  h264 -an udp://localhost:11111
+        #cap = cv2.VideoCapture('udp://'+self.tello_ip+':11111')
+        cap = cv2.VideoCapture('udp://0.0.0.0:11111')
 
 
         # Runs while 'stream_state' is True
@@ -85,12 +86,22 @@ class Tello:
             if cap.isOpened():
                 ret, frame = cap.read()
                 width  = cap.get(cv2.CAP_PROP_FRAME_WIDTH)  # float
-                height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # float            
+                height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # float
+                imagem = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)            
                 try: 
                     #cv2.imshow('DJI Tello', frame)
-                    frec.predict(frame)
+                    try:
+                        #cv2.imshow('Imagem capturada', imagem)
+                        print("Loaded ",frec.loaded)
+                        frec.predict(imagem)
+                    except Exception as error:
+                        exc_type, exc_obj, exc_tb = sys.exc_info()
+                        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                        print("ERROR1: ",error,exc_type, fname, exc_tb.tb_lineno)
                 except:
-                    print("error h w",height,width)
+                    exc_type, exc_obj, exc_tb = sys.exc_info()
+                    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                    print("ERROR2: ",error,exc_type, fname, exc_tb.tb_lineno)
 
                 # Video Stream is closed if escape key is pressed
                 k = cv2.waitKey(1) & 0xFF
@@ -98,6 +109,8 @@ class Tello:
                     break
             else:
                 print("Cap is closed!")
+                cap = cv2.VideoCapture('udp://0.0.0.0:11111')
+
         cap.release()
         cv2.destroyAllWindows()
     

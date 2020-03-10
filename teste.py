@@ -1,5 +1,6 @@
 from easytello import tello
 import cv2,time
+import threading
 
 
 my_drone = tello.Tello()

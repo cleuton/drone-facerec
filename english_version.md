@@ -82,7 +82,7 @@ Generating a model is simple:
     2. Name the files in this pattern: john-doe.nnnn.jpg (do not use spaces, number photos of the same subject, separating them with dots). For example: "bill-clinton.0001.jpg";
     3. Take several photos of your face (and whoever else you want to recognize) and save it in the **raw** folder following the same nomenclature as in step "1/2";
     4. Make sure that there is only one face on each training photo! If there is more than one face, crop the photo;
-2. ** Convert the photos **:
+2. **Convert the photos**:
     1. The **trainCNN.py** script will rotate and crop the faces, transforming them into monochrome images. It will separate in training and test photos (folders "train" and "test") according to the variable **train_test_ratio = 0.3**. If it stays at 30%, then 70% of the images will be for training and the others for testing;
     2. Write down the categories found! The program will display a vector with the names found. Note to change in the prediction script (**predict.py**) and in the recognition script for this project [**faceprocessor.py**](./ easytello / faceprocessor.py);
     3. If there are 4 people in your **raw** folder, it has to separate 4 people in **train** and 4 people in **test**. With few images, fewer people can be in **test** and this will result in error.

@@ -78,24 +78,25 @@ Baixe e extraia o arquivo [**shape_predictor_68_face_landmarks**](http://dlib.ne
 Gerar um modelo é simples: 
 
 1. **Obtenha várias fotos do rosto da mesma pessoa**:
-a) Use o [**Labeled Faces in the Wild**](http://vis-www.cs.umass.edu/lfw/) e baixe várias fotos da mesma pessoa, copiando para a pasta **raw** do projeto FaceRec_CNN;
-b) Nomeie os arquivos neste padrão: fulano-de-tal.nnnn.jpg (não use espaços, numere fotos do mesmo sujeito, separando por pontos). Por exemplo: "bill-clinton.0001.jpg";
-c) Tire várias fotos do seu rosto (e de quem mais deseja reconhecer) e salve na pasta **raw** seguindo a mesma nomenclatura do passo "b";
-d) Cuide para que haja apenas um único rosto em cada foto de treinamento! Se houver mais de um rosto, corte a foto;
+    1. Use o [**Labeled Faces in the Wild**](http://vis-www.cs.umass.edu/lfw/) e baixe várias fotos da mesma pessoa, copiando para a pasta **raw** do projeto FaceRec_CNN;
+    2. Nomeie os arquivos neste padrão: fulano-de-tal.nnnn.jpg (não use espaços, numere fotos do mesmo sujeito, separando por pontos). Por exemplo: "bill-clinton.0001.jpg";
+    3. Tire várias fotos do seu rosto (e de quem mais deseja reconhecer) e salve na pasta **raw** seguindo a mesma nomenclatura do passo "1/2";
+    4. Cuide para que haja apenas um único rosto em cada foto de treinamento! Se houver mais de um rosto, corte a foto;
 
 2. **Converta as fotos**: 
-a) O script **trainCNN.py** vai rotacionar e cortar os rostos, transformando em imagens monocromáticas. Ele vai separar em fotos de treino e de teste (pastas "train" e "test") de acordo com a variável **train_test_ratio = 0.3**. Se mantiver em 30%, então 70% das imagens serão para treino e as outras para teste;
-b) Anote as categorias encontradas! O programa exibirá um vetor com os nomes encontrados. Anote para mudar no script de predição (**predict.py**) e no script de reconhecimento deste projeto [**faceprocessor.py**](./easytello/faceprocessor.py);
-c) Se houver 4 pessoas na sua pasta **raw**, ele tem que separar 4 pessoas em **train** e 4 pessoas em **test**. Com poucas imagens, pode acontecer de ficarem menos pessoas em **test** e isso dará erro.
+    1. O script **trainCNN.py** vai rotacionar e cortar os rostos, transformando em imagens monocromáticas. Ele vai separar em fotos de treino e de teste (pastas "train" e "test") de acordo com a variável **train_test_ratio = 0.3**. Se mantiver em 30%, então 70% das imagens serão para treino e as outras para teste;
+    2.Anote as categorias encontradas! O programa exibirá um vetor com os nomes encontrados. Anote para mudar no script de predição (**predict.py**) e no script de reconhecimento deste projeto [**faceprocessor.py**](./easytello/faceprocessor.py);
+    3. Se houver 4 pessoas na sua pasta **raw**, ele tem que separar 4 pessoas em **train** e 4 pessoas em **test**. Com poucas imagens, pode acontecer de ficarem menos pessoas em **test** e isso dará erro.
 
 3. **Obtenha os nomes das pessoas e o arquivo de modelo**: 
-a) Os nomes das pessoas são exibidos na console, após o treinamento. Copie esse vetor e altere no **facerec.py**;
-b) O arquivo de modelo terá o nome **'faces_saved.h5'** copie-o para a pasta **easytello** deste projeto;
+    1. Os nomes das pessoas são exibidos na console, após o treinamento. Copie esse vetor e altere no **facerec.py**; 
+    2. O arquivo de modelo terá o nome **'faces_saved.h5'** copie-o para a pasta **easytello** deste projeto;
 
 
 Antes de testar com o drone de verdade, eu sugiro que você teste aos poucos: 
 
 1. Verifique se consegue capturar vídeo da sua WebCam: 
+
 ```
 ffmpeg -f video4linux2 -s 640x480 -r 15 -i /dev/video0 -vcodec libx264 -f  h264 -an udp://localhost:11111
 ```
@@ -103,6 +104,7 @@ ffmpeg -f video4linux2 -s 640x480 -r 15 -i /dev/video0 -vcodec libx264 -f  h264 
 Use o programa que eu incluí [**facetest_ffmpeg.py**](./facetest_ffmpeg.py) para capturar as imagens e fazer o reconhecimento. Se tudo funcionar, se ele te reconhecer, então está tudo pronto para rodar no Drone. 
 
 Se quiser, pode rodar: 
+
 ```
 python teste.py
 ```
